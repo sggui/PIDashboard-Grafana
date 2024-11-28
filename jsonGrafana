@@ -27,7 +27,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 3,
         "x": 0,
         "y": 0
@@ -42,7 +42,7 @@
         "content": "<div style=\"padding-left:0px; padding-top:0px; text-align:center;\">\r\n    <img src=\"https://avatars.githubusercontent.com/u/1860278?v=4\" height=\"140\">\r\n</div>",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -54,7 +54,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 21,
+        "w": 9,
         "x": 3,
         "y": 0
       },
@@ -68,10 +68,223 @@
         "content": "<div style=\"padding-top:55px; padding-bottom:0px; background-color:; font-size:28px; font-family: system-ui; text-align:center; font-weight: bolder;\">\n    <font color=\"gray\">VISUALIZAÇÃO DE DADOS</font>\n</div>\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "mssql",
+        "uid": "adwvt79gv35z4e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "dark-yellow",
+                "value": 100
+              },
+              {
+                "color": "dark-green",
+                "value": 250
+              },
+              {
+                "color": "dark-blue",
+                "value": 500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 24,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 27,
+      "options": {
+        "basemap": {
+          "config": {
+            "server": "world-imagery"
+          },
+          "name": "Layer 0",
+          "tooltip": true,
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": false
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.5,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "quantidade",
+                  "fixed": 5,
+                  "max": 50,
+                  "min": 5
+                },
+                "symbol": {
+                  "field": "",
+                  "fixed": "",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "quantidade",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "quantidade",
+                  "fixed": "semi-dark-blue"
+                },
+                "opacity": 0.6,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "quantidade",
+                  "fixed": 5,
+                  "max": 50,
+                  "min": 5
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "field": "estado_carro",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": -4,
+                  "textAlign": "right",
+                  "textBaseline": "bottom"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Legenda",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": -15,
+          "lon": -53,
+          "zoom": 4.4
+        }
+      },
+      "pluginVersion": "11.4.0-79146",
+      "targets": [
+        {
+          "dataset": "AUTO",
+          "datasource": {
+            "type": "mssql",
+            "uid": "adwvt79gv35z4e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    estado_carro,\r\n    COUNT(*) AS quantidade,\r\n    AVG(CAST(latitude_carro AS DECIMAL(10, 7))) AS latitude,\r\n    AVG(CAST(longitude_carro AS DECIMAL(10, 7))) AS longitude\r\nFROM dbo.carros\r\nWHERE latitude_carro IS NOT NULL\r\n  AND longitude_carro IS NOT NULL\r\nGROUP BY estado_carro;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Quantidade por Região",
+      "type": "geomap"
     },
     {
       "fieldConfig": {
@@ -79,10 +292,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 24,
+        "h": 3,
+        "w": 12,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "id": 6,
       "options": {
@@ -94,7 +307,7 @@
         "content": "<div style=\"border-bottom: solid; border-bottom-color: white; padding-top:0px; padding-bottom:0px; background-color:;font-size:28px;font-family: system-ui; text-align:left; font-weight: bolder;\">\n <font color=\"white\">DISTRIBUIÇÕES\n</font>\n</div>",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -108,7 +321,7 @@
         "h": 2,
         "w": 6,
         "x": 0,
-        "y": 6
+        "y": 8
       },
       "id": 19,
       "options": {
@@ -120,7 +333,7 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(31, 96, 196);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">MARCA</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -134,7 +347,7 @@
         "h": 2,
         "w": 6,
         "x": 6,
-        "y": 6
+        "y": 8
       },
       "id": 20,
       "options": {
@@ -146,36 +359,249 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(31, 96, 196);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">MODELO</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
     },
     {
+      "datasource": {
+        "type": "mssql",
+        "uid": "adwvt79gv35z4e"
+      },
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 6,
-        "x": 12,
-        "y": 6
-      },
-      "id": 21,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "green",
+                "value": 250
+              },
+              {
+                "color": "dark-blue",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "locale"
         },
-        "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(31, 96, 196);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">VERSÃO</font>\n</div>\n  \n\n",
-        "mode": "markdown"
+        "overrides": []
       },
-      "pluginVersion": "11.3.0-76761",
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 10
+      },
+      "id": 1,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 100,
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {
+          "valueSize": 20
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.4.0-79146",
+      "targets": [
+        {
+          "dataset": "AUTO",
+          "datasource": {
+            "type": "mssql",
+            "uid": "adwvt79gv35z4e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    marca,\r\n    CONCAT(\r\n            ' | ',\r\n        CAST(ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS NUMERIC(5,1)), '%'\r\n    ) AS \"Quantidade | Porcentagem\",\r\n    COUNT(DISTINCT unique_id) AS quantidade_distinct\r\nFROM dbo.carros\r\nWHERE \r\n    marca IN ($filtro_marca)\r\n    AND modelo IN ($filtro_modelo)\r\n    AND versao IN ($filtro_versao)\r\n    AND YEAR(ano_fabricacao) IN ($filtro_ano)\r\n    AND numero_portas IN ($filtro_numero_portas)\r\n    AND carroceria_descricao IN ($filtro_carroceria)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN ($filtro_cambio)\r\n    AND estado_vendedor IN ($filtro_estado_vendedor)\r\n    AND cidade_vendedor IN ($filtro_cidade_vendedor)\r\nGROUP BY marca;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
       "title": "",
+      "transformations": [
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "quantidade_distinct"
+              }
+            ]
+          }
+        }
+      ],
       "transparent": true,
-      "type": "text"
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mssql",
+        "uid": "adwvt79gv35z4e"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "green",
+                "value": 250
+              },
+              {
+                "color": "dark-blue",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 10
+      },
+      "id": 29,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 100,
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.4.0-79146",
+      "targets": [
+        {
+          "dataset": "AUTO",
+          "datasource": {
+            "type": "mssql",
+            "uid": "adwvt79gv35z4e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    modelo,\r\n    CONCAT(\r\n            ' | ',\r\n        CAST(ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS NUMERIC(5,2)), '%'\r\n    ) AS \"Quantidade | Porcentagem\",\r\n    COUNT(DISTINCT unique_id) AS quantidade_distinct\r\nFROM dbo.carros\r\nWHERE \r\n    marca IN ($filtro_marca)\r\n    AND modelo IN ($filtro_modelo)\r\n    AND versao IN ($filtro_versao)\r\n    AND YEAR(ano_fabricacao) IN ($filtro_ano)\r\n    AND numero_portas IN ($filtro_numero_portas)\r\n    AND carroceria_descricao IN ($filtro_carroceria)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN ($filtro_cambio)\r\n    AND estado_vendedor IN ($filtro_estado_vendedor)\r\n    AND cidade_vendedor IN ($filtro_cidade_vendedor)\r\nGROUP BY modelo;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "quantidade_distinct"
+              }
+            ]
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "bargauge"
     },
     {
       "fieldConfig": {
@@ -184,9 +610,9 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 6,
-        "x": 18,
-        "y": 6
+        "w": 12,
+        "x": 0,
+        "y": 17
       },
       "id": 22,
       "options": {
@@ -198,7 +624,7 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(31, 96, 196);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">ANO</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -211,37 +637,68 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
+            "mode": "thresholds"
           },
           "decimals": 0,
-          "mappings": []
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "green",
+                "value": 250
+              },
+              {
+                "color": "dark-blue",
+                "value": 500
+              }
+            ]
+          },
+          "unit": "locale"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ano_fabricacao_str"
+            },
+            "properties": [
+              {
+                "id": "unit"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
+        "h": 5,
+        "w": 12,
         "x": 0,
-        "y": 8
+        "y": 19
       },
-      "id": 1,
+      "id": 30,
       "options": {
+        "displayMode": "lcd",
         "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
-        "pieType": "donut",
+        "maxVizHeight": 300,
+        "minVizHeight": 23,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -250,12 +707,12 @@
           "limit": 100,
           "values": true
         },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {},
+        "valueMode": "color"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "dataset": "AUTO",
@@ -266,7 +723,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "select marca, \r\ncount(distinct unique_id)\r\nfrom dbo.carros\r\nwhere marca IN($filtro_marca)\r\nAND modelo IN($filtro_modelo)\r\nAND versao IN($filtro_versao)\r\nAND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\nAND numero_portas IN($filtro_numero_portas)\r\nAND carroceria_descricao IN($filtro_carroceria)\r\nAND rodometro >= $filtro_rodometro_inicial\r\nAND rodometro <= $filtro_rodometro_final\r\ngroup by marca;",
+          "rawSql": "SELECT \r\n    CONVERT(VARCHAR, YEAR(ano_fabricacao)) AS \"ano_fabricacao_str\",\r\n    CONCAT(\r\n            ' | ',\r\n        CAST(ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS NUMERIC(5,2)), '%'\r\n    ) AS \"Quantidade | Porcentagem\",\r\n    COUNT(DISTINCT unique_id) AS quantidade_distinct\r\nFROM dbo.carros\r\nWHERE \r\n    marca IN ($filtro_marca)\r\n    AND modelo IN ($filtro_modelo)\r\n    AND versao IN ($filtro_versao)\r\n    AND YEAR(ano_fabricacao) IN ($filtro_ano)\r\n    AND numero_portas IN ($filtro_numero_portas)\r\n    AND carroceria_descricao IN ($filtro_carroceria)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN ($filtro_cambio)\r\n    AND estado_vendedor IN ($filtro_estado_vendedor)\r\n    AND cidade_vendedor IN ($filtro_cidade_vendedor)\r\nGROUP BY CONVERT(VARCHAR, YEAR(ano_fabricacao));\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -288,273 +745,22 @@
         }
       ],
       "title": "",
-      "transparent": true,
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "mssql",
-        "uid": "adwvt79gv35z4e"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 8
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "limit": 100,
-          "values": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "11.3.0-76761",
-      "targets": [
+      "transformations": [
         {
-          "dataset": "AUTO",
-          "datasource": {
-            "type": "mssql",
-            "uid": "adwvt79gv35z4e"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "select modelo, \r\ncount(distinct unique_id)\r\nfrom dbo.carros\r\nwhere marca IN($filtro_marca)\r\nAND modelo IN($filtro_modelo)\r\nAND versao IN($filtro_versao)\r\nAND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\nAND carroceria_descricao IN($filtro_carroceria)\r\nAND numero_portas IN($filtro_numero_portas)\r\nAND rodometro >= $filtro_rodometro_inicial\r\nAND rodometro <= $filtro_rodometro_final\r\ngroup by modelo;",
-          "refId": "A",
-          "sql": {
-            "columns": [
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
               {
-                "parameters": [],
-                "type": "function"
+                "desc": true,
+                "field": "quantidade_distinct"
               }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
+            ]
           }
         }
       ],
-      "title": "",
       "transparent": true,
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "mssql",
-        "uid": "adwvt79gv35z4e"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 12,
-        "y": 8
-      },
-      "id": 3,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "limit": 100,
-          "values": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "11.3.0-76761",
-      "targets": [
-        {
-          "dataset": "AUTO",
-          "datasource": {
-            "type": "mssql",
-            "uid": "adwvt79gv35z4e"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "select versao, \r\ncount(distinct unique_id)\r\nfrom dbo.carros\r\nwhere marca IN($filtro_marca)\r\nAND modelo IN($filtro_modelo)\r\nAND versao IN($filtro_versao)\r\nAND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\nAND carroceria_descricao IN($filtro_carroceria)\r\nAND numero_portas IN($filtro_numero_portas)\r\nAND rodometro >= $filtro_rodometro_inicial\r\nAND rodometro <= $filtro_rodometro_final\r\ngroup by versao;",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "",
-      "transparent": true,
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "mssql",
-        "uid": "adwvt79gv35z4e"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "decimals": 0,
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 8
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "limit": 100,
-          "values": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "11.3.0-76761",
-      "targets": [
-        {
-          "dataset": "AUTO",
-          "datasource": {
-            "type": "mssql",
-            "uid": "adwvt79gv35z4e"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT CONVERT(VARCHAR, YEAR(ano_fabricacao)) AS ano_fabricacao_str, \r\n       COUNT(DISTINCT unique_id)\r\nFROM dbo.carros\r\nwhere marca IN($filtro_marca)\r\nAND modelo IN($filtro_modelo)\r\nAND versao IN($filtro_versao)\r\nAND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\nAND carroceria_descricao IN($filtro_carroceria)\r\nAND numero_portas IN($filtro_numero_portas)\r\nAND rodometro >= $filtro_rodometro_inicial\r\nAND rodometro <= $filtro_rodometro_final\r\nGROUP BY YEAR(ano_fabricacao);\r\n",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "",
-      "transparent": true,
-      "type": "piechart"
+      "type": "bargauge"
     },
     {
       "fieldConfig": {
@@ -565,7 +771,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 24
       },
       "id": 8,
       "options": {
@@ -574,10 +780,10 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "<div style=\"border-bottom: solid; border-bottom-color: white; padding-top:0px; padding-bottom:0px; background-color:;font-size:28px;font-family: system-ui; text-align:left; font-weight: bolder;\">\n <font color=\"white\">PREÇOS\n</font>\n</div>",
+        "content": "<div style=\"border-bottom: solid; border-bottom-color: white; padding-top:0px; padding-bottom:0px; background-color:;font-size:28px;font-family: system-ui; text-align:left; font-weight: bolder;\">\n <font color=\"white\">DETALHAMENTO\n</font>\n</div>",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -606,8 +812,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -698,10 +903,10 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 11,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 26
       },
       "id": 5,
       "options": {
@@ -718,12 +923,12 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": false,
-            "displayName": "KM"
+            "desc": true,
+            "displayName": "Ano"
           }
         ]
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "dataset": "AUTO",
@@ -734,7 +939,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n  unique_id,\r\n  'Mais detalhes' AS Detalhes,\r\n  estado_carro as Estado,\r\n  cidade_carro AS Cidade,\r\n  bairro_carro AS Bairro,\r\n  cor AS Cor,\r\n  marca AS Marca,\r\n  modelo AS Modelo,\r\n  numero_portas,\r\n  carroceria_descricao AS Carroceria,\r\n  REPLACE(TRANSLATE(versao, 'ÁÉÍÓÚÂÊÎÔÛÃÕÇáéíóúâêîôûãõç', 'AEIOUAEIOUAOCaeiouaeiouaoc'), ' ', '-') AS Versao,  -- Substitui caracteres acentuados e espaços por hífen\r\n  cambio_descricao AS \"Câmbio\",\r\n  rodometro AS \"Rodômetro\",\r\n  CONVERT(VARCHAR, YEAR(ano_fabricacao)) AS Ano,\r\n  preco_fipe AS \"Valor Fipe\",\r\n  preco_webmotors AS \"Valor Webmotors\"\r\nFROM dbo.carros\r\nWHERE estado_carro <> 'BR'\r\nAND marca IN($filtro_marca)\r\n  AND modelo IN ($filtro_modelo)\r\n  AND versao IN($filtro_versao)\r\n  AND rodometro >= $filtro_rodometro_inicial\r\n  AND rodometro <= $filtro_rodometro_final\r\n  AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n  AND carroceria_descricao IN($filtro_carroceria)\r\n  AND numero_portas IN($filtro_numero_portas)\r\nGROUP BY \r\n  marca, \r\n  modelo, \r\n  versao, \r\n  CONVERT(VARCHAR, YEAR(ano_fabricacao)), \r\n  preco_fipe, \r\n  preco_webmotors,\r\n  cambio_descricao, \r\n  rodometro,\r\n  cidade_carro,\r\n  estado_carro,\r\n  cor,\r\n  carroceria_descricao,\r\n  bairro_carro,\r\n  numero_portas,\r\n  unique_id;\r\n",
+          "rawSql": "SELECT \r\n  unique_id,\r\n  'Mais detalhes' AS Detalhes,\r\n  estado_carro as Estado,\r\n  cidade_carro AS Cidade,\r\n  bairro_carro AS Bairro,\r\n  cor AS Cor,\r\n  marca AS Marca,\r\n  modelo AS Modelo,\r\n  numero_portas,\r\n  carroceria_descricao AS Carroceria,\r\n  REPLACE(TRANSLATE(versao, 'ÁÉÍÓÚÂÊÎÔÛÃÕÇáéíóúâêîôûãõç', 'AEIOUAEIOUAOCaeiouaeiouaoc'), ' ', '-') AS Versao,  -- Substitui caracteres acentuados e espaços por hífen\r\n  cambio_descricao AS \"Câmbio\",\r\n  rodometro AS \"Rodômetro\",\r\n  CONVERT(VARCHAR, YEAR(ano_fabricacao)) AS Ano,\r\n  preco_fipe AS \"Valor Fipe\",\r\n  preco_webmotors AS \"Valor Webmotors\"\r\nFROM dbo.carros\r\nWHERE estado_carro <> 'BR'\r\nAND marca IN($filtro_marca)\r\n  AND modelo IN ($filtro_modelo)\r\n  AND versao IN($filtro_versao)\r\n  AND rodometro >= $filtro_rodometro_inicial\r\n  AND rodometro <= $filtro_rodometro_final\r\n  AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n  AND carroceria_descricao IN($filtro_carroceria)\r\n  AND numero_portas IN($filtro_numero_portas)\r\n  AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\nGROUP BY \r\n  marca, \r\n  modelo, \r\n  versao, \r\n  CONVERT(VARCHAR, YEAR(ano_fabricacao)), \r\n  preco_fipe, \r\n  preco_webmotors,\r\n  cambio_descricao, \r\n  rodometro,\r\n  cidade_carro,\r\n  estado_carro,\r\n  cor,\r\n  carroceria_descricao,\r\n  bairro_carro,\r\n  numero_portas,\r\n  unique_id;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -803,7 +1008,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 37
       },
       "id": 7,
       "options": {
@@ -815,7 +1020,7 @@
         "content": "<div style=\"border-bottom: solid; border-bottom-color: white; padding-top:0px; padding-bottom:0px; background-color:;font-size:28px;font-family: system-ui; text-align:left; font-weight: bolder;\">\n <font color=\"white\">CURIOSIDADES\n</font>\n</div>",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -827,9 +1032,9 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 11,
+        "w": 12,
         "x": 0,
-        "y": 28
+        "y": 39
       },
       "id": 13,
       "options": {
@@ -841,7 +1046,7 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(31, 96, 196);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">🚪 NÚMERO DE PORTAS</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -853,9 +1058,9 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 13,
-        "x": 11,
-        "y": 28
+        "w": 12,
+        "x": 12,
+        "y": 39
       },
       "id": 15,
       "options": {
@@ -867,7 +1072,7 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(163, 82, 204);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">🦺 BLINDAGEM</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -913,8 +1118,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           },
@@ -940,9 +1144,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 10,
+        "w": 12,
         "x": 0,
-        "y": 30
+        "y": 41
       },
       "id": 9,
       "options": {
@@ -971,7 +1175,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "dataset": "AUTO",
@@ -982,7 +1186,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n    quantidade_portas AS Portas, \r\n    A.quantidade_portas_total * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n\t\t(CASE \r\n\t\tWHEN numero_portas = 2 THEN '2 PORTAS'\r\n\t\tWHEN numero_portas = 3 THEN '3 PORTAS'\r\n\t\tWHEN numero_portas = 4 THEN '4 PORTAS'\r\n\t\tELSE NULL\r\n\t\tEND) as quantidade_portas,\r\n        COUNT(DISTINCT unique_id) AS quantidade_portas_total\r\n    FROM dbo.carros\r\n    where numero_portas <> '0'\r\n    AND marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    GROUP BY\r\n        numero_portas\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    where numero_portas <> '0'\r\n    AND marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    ) AS B\r\nORDER BY 2 DESC;  -- Aqui usamos o índice da coluna \"%\"\r\n",
+          "rawSql": "SELECT \r\n    quantidade_portas AS Portas, \r\n    A.quantidade_portas_total * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n\t\t(CASE \r\n\t\tWHEN numero_portas = 2 THEN '2 PORTAS'\r\n\t\tWHEN numero_portas = 3 THEN '3 PORTAS'\r\n\t\tWHEN numero_portas = 4 THEN '4 PORTAS'\r\n\t\tELSE NULL\r\n\t\tEND) as quantidade_portas,\r\n        COUNT(DISTINCT unique_id) AS quantidade_portas_total\r\n    FROM dbo.carros\r\n    where\r\n    marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    GROUP BY\r\n        numero_portas\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    where numero_portas <> '0'\r\n    AND marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    ) AS B\r\nORDER BY 2 DESC;  -- Aqui usamos o índice da coluna \"%\"\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1048,8 +1252,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           },
@@ -1075,9 +1278,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 13,
-        "x": 11,
-        "y": 30
+        "w": 12,
+        "x": 12,
+        "y": 41
       },
       "id": 25,
       "options": {
@@ -1106,7 +1309,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "dataset": "AUTO",
@@ -1117,7 +1320,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n\t(CASE\r\n\t\tWHEN CONVERT(VARCHAR, A.blindado) = '0' THEN 'Não'\r\n\t\tWHEN CONVERT(VARCHAR, A.blindado) = '1' THEN 'Sim'\r\n\tEND) as Status_blindado,\r\n    A.quantidade_por_blindado * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n        blindado,\r\n        COUNT(DISTINCT unique_id) AS quantidade_por_blindado\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    GROUP BY\r\n        blindado\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    ) AS B\r\nORDER BY 2 DESC;",
+          "rawSql": "SELECT \r\n\t(CASE\r\n\t\tWHEN CONVERT(VARCHAR, A.blindado) = '0' THEN 'Não'\r\n\t\tWHEN CONVERT(VARCHAR, A.blindado) = '1' THEN 'Sim'\r\n\tEND) as Status_blindado,\r\n    A.quantidade_por_blindado * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n        blindado,\r\n        COUNT(DISTINCT unique_id) AS quantidade_por_blindado\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND estado_carro <> 'BR'\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    GROUP BY\r\n        blindado\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND estado_carro <> 'BR'\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    ) AS B\r\nORDER BY 2 DESC;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1149,9 +1352,9 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 11,
+        "w": 12,
         "x": 0,
-        "y": 37
+        "y": 48
       },
       "id": 14,
       "options": {
@@ -1163,7 +1366,7 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(224, 180, 0);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"white\">🚘 CARROCERIA</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -1175,9 +1378,9 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 13,
-        "x": 11,
-        "y": 37
+        "w": 12,
+        "x": 12,
+        "y": 48
       },
       "id": 16,
       "options": {
@@ -1189,7 +1392,7 @@
         "content": "<div style= \" border-radius: 120px 100px / 100px ; padding-left:30px; padding-top:0px; padding-bottom:0px;padding-right:20px; background-color:rgb(255, 255, 255);font-size:20px;font-family: system-ui; text-align: center; font-weight: bolder;\">\n <font color=\"black\">🎨 COR</font>\n</div>\n  \n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "title": "",
       "transparent": true,
       "type": "text"
@@ -1235,8 +1438,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           },
@@ -1262,9 +1464,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 11,
+        "w": 12,
         "x": 0,
-        "y": 39
+        "y": 50
       },
       "id": 23,
       "options": {
@@ -1293,7 +1495,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "dataset": "AUTO",
@@ -1304,7 +1506,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n    A.carroceria AS Carroceria, \r\n    A.quantidade_por_carroceria * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n        carroceria_descricao AS carroceria,\r\n        COUNT(DISTINCT unique_id) AS quantidade_por_carroceria\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    GROUP BY\r\n        carroceria_descricao\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    ) AS B\r\nORDER BY 2 DESC;  -- Aqui usamos o índice da coluna \"%\"\r\n",
+          "rawSql": "SELECT \r\n    A.carroceria AS Carroceria, \r\n    A.quantidade_por_carroceria * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n        carroceria_descricao AS carroceria,\r\n        COUNT(DISTINCT unique_id) AS quantidade_por_carroceria\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    GROUP BY\r\n        carroceria_descricao\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    ) AS B\r\nORDER BY 2 DESC;  -- Aqui usamos o índice da coluna \"%\"\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1370,8 +1572,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           },
@@ -1397,9 +1598,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 13,
-        "x": 11,
-        "y": 39
+        "w": 12,
+        "x": 12,
+        "y": 50
       },
       "id": 24,
       "options": {
@@ -1428,7 +1629,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "11.3.0-76761",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "dataset": "AUTO",
@@ -1439,7 +1640,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n\ta.cor,\r\n    A.quantidade_por_cor * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n        cor,\r\n        COUNT(DISTINCT unique_id) AS quantidade_por_cor\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    GROUP BY\r\n        cor\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    ) AS B\r\nORDER BY 2 DESC;  -- Aqui usamos o índice da coluna \"%\"",
+          "rawSql": "SELECT \r\n\ta.cor,\r\n    A.quantidade_por_cor * 100.0 / B.total_all AS \"%\"\r\nFROM\r\n    (\r\n    SELECT\r\n        cor,\r\n        COUNT(DISTINCT unique_id) AS quantidade_por_cor\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    GROUP BY\r\n        cor\r\n    ) AS A\r\nCROSS JOIN\r\n    (\r\n    SELECT\r\n        COUNT(DISTINCT unique_id) AS total_all\r\n    FROM dbo.carros\r\n    WHERE marca IN($filtro_marca)\r\n    AND modelo IN($filtro_modelo)\r\n    AND versao IN($filtro_versao)\r\n    AND CONVERT(VARCHAR, YEAR(ano_fabricacao)) IN($filtro_ano)\r\n    AND carroceria_descricao IN($filtro_carroceria)\r\n    AND numero_portas IN($filtro_numero_portas)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN($filtro_cambio)\r\nAND estado_vendedor IN($filtro_estado_vendedor)\r\nAND cidade_vendedor IN($filtro_cidade_vendedor)\r\n    ) AS B\r\nORDER BY 2 DESC;  -- Aqui usamos o índice da coluna \"%\"",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1498,9 +1699,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1523,9 +1722,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1549,9 +1746,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1575,9 +1770,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1601,9 +1794,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1627,9 +1818,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1652,9 +1841,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1677,9 +1864,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1703,9 +1888,7 @@
       },
       {
         "current": {
-          "text": [
-            "All"
-          ],
+          "text": "All",
           "value": [
             "$__all"
           ]
@@ -1756,13 +1939,13 @@
           "type": "mssql",
           "uid": "adwvt79gv35z4e"
         },
-        "definition": "SELECT DISTINCT rodometro\nFROM dbo.carros\nWHERE (rodometro > CASE WHEN $filtro_rodometro_inicial = 0 THEN 0 ELSE $filtro_rodometro_inicial END)\nAND marca IN ($filtro_marca)\nORDER BY rodometro DESC;\n",
+        "definition": "SELECT DISTINCT rodometro\nFROM dbo.carros\nWHERE (rodometro > CASE WHEN $filtro_rodometro_inicial = 0 THEN 0 ELSE $filtro_rodometro_inicial END)\n--AND marca IN ($filtro_marca)\nORDER BY rodometro DESC;",
         "description": "",
         "includeAll": false,
         "label": "KM Final",
         "name": "filtro_rodometro_final",
         "options": [],
-        "query": "SELECT DISTINCT rodometro\nFROM dbo.carros\nWHERE (rodometro > CASE WHEN $filtro_rodometro_inicial = 0 THEN 0 ELSE $filtro_rodometro_inicial END)\nAND marca IN ($filtro_marca)\nORDER BY rodometro DESC;\n",
+        "query": "SELECT DISTINCT rodometro\nFROM dbo.carros\nWHERE (rodometro > CASE WHEN $filtro_rodometro_inicial = 0 THEN 0 ELSE $filtro_rodometro_inicial END)\n--AND marca IN ($filtro_marca)\nORDER BY rodometro DESC;",
         "refresh": 1,
         "regex": "",
         "sort": 3,
@@ -1778,6 +1961,6 @@
   "timezone": "browser",
   "title": "Dashboard_PI",
   "uid": "cdwvtm0ufzcaoe",
-  "version": 121,
+  "version": 175,
   "weekStart": ""
 }
