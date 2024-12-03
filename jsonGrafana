@@ -29,7 +29,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#000000",
+            "fixedColor": "#2f4353",
             "mode": "fixed"
           },
           "mappings": [],
@@ -39,10 +39,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
@@ -58,7 +54,7 @@
       },
       "id": 31,
       "options": {
-        "colorMode": "background_solid",
+        "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "vertical",
@@ -452,7 +448,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n    estado_carro,\r\n    COUNT(*) AS quantidade,\r\n    AVG(CAST(latitude_carro AS DECIMAL(10, 7))) AS latitude,\r\n    AVG(CAST(longitude_carro AS DECIMAL(10, 7))) AS longitude\r\nFROM dbo.carros\r\nWHERE latitude_carro IS NOT NULL\r\n  AND longitude_carro IS NOT NULL\r\n  AND marca IN ($filtro_marca)\r\n    AND modelo IN ($filtro_modelo)\r\n    AND versao IN ($filtro_versao)\r\n    AND YEAR(ano_fabricacao) IN ($filtro_ano)\r\n    AND numero_portas IN ($filtro_numero_portas)\r\n    AND carroceria_descricao IN ($filtro_carroceria)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN ($filtro_cambio)\r\n    AND estado_vendedor IN ($filtro_estado_vendedor)\r\n    AND cidade_vendedor IN ($filtro_cidade_vendedor)\r\nGROUP BY estado_carro;\r\n",
+          "rawSql": "SELECT \r\n    estado_carro,\r\n    COUNT(distinct unique_id) AS quantidade,\r\n    AVG(CAST(latitude_carro AS DECIMAL(10, 7))) AS latitude,\r\n    AVG(CAST(longitude_carro AS DECIMAL(10, 7))) AS longitude\r\nFROM dbo.carros\r\nWHERE latitude_carro IS NOT NULL\r\n  AND longitude_carro IS NOT NULL\r\n  AND marca IN ($filtro_marca)\r\n    AND modelo IN ($filtro_modelo)\r\n    AND versao IN ($filtro_versao)\r\n    AND YEAR(ano_fabricacao) IN ($filtro_ano)\r\n    AND numero_portas IN ($filtro_numero_portas)\r\n    AND carroceria_descricao IN ($filtro_carroceria)\r\n    AND estado_carro <> 'BR'\r\n    AND rodometro >= $filtro_rodometro_inicial\r\n    AND rodometro <= $filtro_rodometro_final\r\n    AND cambio_descricao IN ($filtro_cambio)\r\n    AND estado_vendedor IN ($filtro_estado_vendedor)\r\n    AND cidade_vendedor IN ($filtro_cidade_vendedor)\r\nGROUP BY estado_carro;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -569,7 +565,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#000000",
+            "fixedColor": "#2f4353",
             "mode": "fixed"
           },
           "mappings": [],
@@ -579,10 +575,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
@@ -631,7 +623,7 @@
       },
       "id": 32,
       "options": {
-        "colorMode": "background_solid",
+        "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
@@ -1468,7 +1460,7 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "Ano"
+            "displayName": "KM"
           }
         ]
       },
@@ -1984,7 +1976,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue"
+                "color": "blue",
+                "value": null
               }
             ]
           },
@@ -2118,7 +2111,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue"
+                "color": "blue",
+                "value": null
               }
             ]
           },
@@ -2507,6 +2501,6 @@
   "timezone": "utc",
   "title": "Dashboard_PI",
   "uid": "cdwvtm0ufzcaoe",
-  "version": 216,
+  "version": 221,
   "weekStart": ""
 }
